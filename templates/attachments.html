@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attachments</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home">EMTech</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="technicalVisit">Technical Visit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="attachments">Attachments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin">Admin</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- ------------------------------ -->
+
+  <div class="container">
+    <h1 style="text-align: center;" class="mt-4">Attachments</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="attachmentsContainer">
+
+    </div>
+  </div>
+  <!-- --------------------------------- -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+    <script>
+      // Load data from localStorage when the page is loaded
+      document.addEventListener('DOMContentLoaded', (event) => {
+          // Retrieve the data from localStorage
+          var storedData = localStorage.getItem("formDataArray");
+
+          // Check if there is stored data
+          if (storedData) {
+              // Parse the JSON string back to an array of objects
+              var data = JSON.parse(storedData);
+
+              // Loop through each data object and create a card for it
+              data.forEach((item, index) => {
+                  if (item.fileAttach) { // Only create card if there is a file attached
+                      var cardDiv = document.createElement("div");
+                      cardDiv.classList.add("col");
+
+                      cardDiv.innerHTML = `
+                          <div class="card">
+                              <img src="${item.fileAttach}" class="card-img-top" alt="${item.attachName}">
+                              <div class="card-body">
+                                  <h5 class="card-title">${item.attachName}</h5>
+                                  <p class="card-text">${item.description}</p>
+                                  <a href="${item.fileAttach}" download="${item.attachName}" class="btn btn-primary">Download</a>
+                              </div>
+                          </div>
+                      `;
+
+                      // Add the card to the attachments container
+                      var attachmentsContainer = document.getElementById("attachmentsContainer");
+                      attachmentsContainer.appendChild(cardDiv);
+                  }
+              });
+          }
+      });
+  </script>
+
+</body>
+
+</html>
