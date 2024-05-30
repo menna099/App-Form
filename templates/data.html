@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .form-check-label input[type="checkbox"] {
+            margin-right: 5px; 
+            order: -1;
+        }
+        .form-check-label {
+            position: relative;
+            margin: 0;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-image: linear-gradient(#fff, #f8f8f8);
+            font-weight: normal;
+        }
+
+        .nav-link {
+            color: white
+        }
+
+        .navbar-nav li a:hover {
+            color: white;
+        }
+
+        table.table th {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="img navbar-brand" style="margin-left: 16.6667%;" href="/home">
+                <img src="static/emtech_logo3.jpg" alt="EMTech Logo">
+            </a>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+        <div class="container-fluid">
+            <a></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" style="margin-left: 16.667%;" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="technicalVisit">Technical Visit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attachments">Attachments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data">Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="engineer">Engineer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-details">Customer Details</a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ------------------- -->
+    <div class="container">
+        <h3 style="margin-top:20px;">Data</h3>
+        <h4 style="color: gray;">Filter by</h4>
+
+        <form id="filterForm">
+            <div class="row">
+                <fieldset style="margin-top: 20px;" class="col-md-6">
+                    <Label>Customer Name</Label>
+                    <input type="text" class="form-control form-check-label" id="myInput" onkeyup="filterTable()">
+                </fieldset>
+                <fieldset style="margin-top: 20px;" class="col-md-6">
+                    <Label>Location</Label>
+                    <input type="text" class="form-control form-check-label" id="locationInput" onkeyup="filterTable()">
+                </fieldset>
+                <fieldset style="margin-top: 20px;" class="col-md-6">
+                    <Label>Phone</Label>
+                    <input type="number" class="form-control form-check-label" id="phoneInput" onkeyup="filterTable()">
+                </fieldset>
+                <fieldset style="margin-top: 20px;" class="col-md-6">
+                    <Label>startDate</Label>
+                    <input type="date" class="form-control form-check-label" id="dateInput" onkeyup="filterTable()">
+                </fieldset>
+
+                <fieldset style="margin-top: 20px;" class="col-md-4">
+                    <Label>Engineer</Label><br>
+                    <div id="engineerCheckboxes"></div> <!-- Div to contain engineer checkboxes -->
+                </fieldset>
+
+                <fieldset style="margin-top: 20px;" class="col-md-4">
+                    <Label>Type</Label><br>
+                    <label class="form-check-label" style="justify-content: space-between;"
+                        onclick="toggleCheckbox('Visit')">
+                        <span>
+                            <input type="checkbox" value="Visit" class="form-check-input" id="filterInput" onchange="filterTable()"
+                                name="filterStatus"> Visit
+                        </span></label>
+                    <label class="form-check-label" style="justify-content: space-between;border-top:none"
+                        onclick="toggleCheckbox('Project')">
+                        <span>
+                            <input type="checkbox" value="Project" class="form-check-input" id="filterInput" onchange="filterTable()"
+                                name="filterStatus"> Project
+                        </span></label>
+                </fieldset>
+
+                 <fieldset style="margin-top: 20px;" class="col-md-4">
+                    <Label>Status</Label>
+                    <label class="form-check-label" style="justify-content: space-between;"
+                        onclick="toggleCheckbox('In progress')">
+                        <span>
+                            <input type="checkbox" value="In progress" class="form-check-input" id="filterInput" onchange="filterTable()"
+                                name="filterStatus"> In progress
+                        </span></label>
+                        <label class="form-check-label" style="justify-content: space-between;border-top:none"
+                        onclick="toggleCheckbox('Done')">
+                        <span>
+                            <input type="checkbox" value="Done" class="form-check-input" id="filterInput" onchange="filterTable()"
+                                name="filterStatus"> Done
+                        </span></label>
+                        <label class="form-check-label" style="justify-content: space-between;border-top:none"
+                        onclick="toggleCheckbox('Hold')">
+                        <span>
+                            <input type="checkbox" value="Hold" class="form-check-input" id="filterInput" onchange="filterTable()"
+                                name="filterStatus"> Hold
+                        </span></label>
+                        <label class="form-check-label" style="justify-content: space-between;border-top:none"
+                        onclick="toggleCheckbox('Lead')">
+                        <span>
+                            <input type="checkbox" value="Lead" class="form-check-input" id="filterInput" onchange="filterTable()"
+                                name="filterStatus"> Lead
+                        </span></label>
+                </fieldset> 
+            </div>
+        </form>
+<br>
+<div class="table-responsive">
+        <table id="myTable" class="table table-striped" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Engineer</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ستتم إضافة الصفوف هنا باستخدام JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        
+            // Function to display engineers in checkboxes
+            function displayEngineers() {
+                const engineers = JSON.parse(localStorage.getItem('engineers')) || [];
+                const engineerCheckboxes = document.getElementById('engineerCheckboxes');
+    
+                // Clear existing checkboxes
+                engineerCheckboxes.innerHTML = '';
+    
+                // Create and append checkboxes for each engineer
+                engineers.forEach(engineer => {
+                    const label = document.createElement('label');
+                    label.className = 'form-check-label';
+                    const span = document.createElement('span');
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.value = engineer;
+                    input.className = 'form-check-input';
+                    input.name = 'filterEngineer';
+                    input.onchange = filterTable; // Attach the filter function
+    
+                    // Add the engineer's name
+                    span.textContent = engineer;
+                    label.appendChild(span);
+                    label.appendChild(input);
+                    engineerCheckboxes.appendChild(label);
+                });
+            }
+    
+            // Call the function to display engineers when the page loads
+            document.addEventListener('DOMContentLoaded', displayEngineers);
+       
+
+///////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener('DOMContentLoaded', (event) => {
+    // استرجاع البيانات من localStorage
+    const formDataArray = JSON.parse(localStorage.getItem('formDataArray')) || [];
+
+    // احتواء الصفوف في الجدول
+    const tableBody = document.querySelector('#myTable tbody');
+
+    // عرض البيانات في الجدول
+    formDataArray.forEach(data => {
+        const row = tableBody.insertRow();
+        const url = `customer-details.html?name=${encodeURIComponent(data.name)}`;
+        const engineersLinks = data.visitEngineers.map(engineer => 
+                  `<a href="engineer.html?name=${encodeURIComponent(engineer)}">${engineer}</a>`
+                ).join(', ');
+        row.innerHTML = `
+            <td><a href="${url}">${data.name}</a></td>
+            <td>${data.Location || ''}</td>
+            <td>${data.Phone || ''}</td>
+            <td>${engineersLinks}</td>
+            <td>${data.visitProjects}</td>
+            <td>${data.startDate}</td>
+            <td>${data.status}</td>
+        `;
+    });
+});
+///////////////////////////////////////////////////////////////////////////////////////
+
+        function toggleCheckbox(value) {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][value="' + value + '"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !checkbox.checked;
+            });
+            filterTable();
+        }
+        function filterTable() {
+            var inputName = document.getElementById("myInput").value.toUpperCase();
+            var inputLocation = document.getElementById("locationInput").value.toUpperCase();
+            var inputPhone = document.getElementById("phoneInput").value;
+            var inputDate = document.getElementById("dateInput").value;
+            var checkboxesEngineer = document.querySelectorAll('input[name="filterEngineer"]');
+            var checkboxesType = document.querySelectorAll('input[name="filterStatus"][value="Visit"], input[name="filterStatus"][value="Project"]');
+            var checkboxesStatus = document.querySelectorAll('input[name="filterStatus"][value="In progress"], input[name="filterStatus"][value="Done"], input[name="filterStatus"][value="Hold"], input[name="filterStatus"][value="Lead"]');
+
+            var table = document.getElementById("myTable");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                var tdName = tr[i].getElementsByTagName("td")[0];
+                var tdLocation = tr[i].getElementsByTagName("td")[1];
+                var tdPhone = tr[i].getElementsByTagName("td")[2];
+                var tdEngineer = tr[i].getElementsByTagName("td")[3];
+                var tdType = tr[i].getElementsByTagName("td")[4];
+                var tdDate = tr[i].getElementsByTagName("td")[5];
+                var tdStatus = tr[i].getElementsByTagName("td")[6];
+                if (tdName && tdLocation && tdPhone && tdEngineer && tdType && tdDate && tdStatus) {
+                    var nameValue = tdName.textContent || tdName.innerText;
+                    var locationValue = tdLocation.textContent || tdLocation.innerText;
+                    var phoneValue = tdPhone.textContent || tdPhone.innerText;
+                    var engineerValue = tdEngineer.textContent || tdEngineer.innerText;
+                    var typeValue = tdType.textContent || tdType.innerText;
+                    var dateValue = tdDate.textContent || tdDate.innerText;
+                    var statusValue = tdStatus.textContent || tdStatus.innerText;
+                    
+                    var engineerChecked = Array.from(checkboxesEngineer).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+                    var typeChecked = Array.from(checkboxesType).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+                    var statusChecked = Array.from(checkboxesStatus).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+                    if ((nameValue.toUpperCase().indexOf(inputName) > -1 || inputName === "") &&
+                        (locationValue.toUpperCase().indexOf(inputLocation) > -1 || inputLocation === "") &&
+                        (phoneValue === inputPhone || inputPhone === "") &&
+                        (engineerChecked.length === 0 || engineerChecked.includes(engineerValue)) &&
+                        (typeChecked.length === 0 || typeChecked.includes(typeValue)) &&
+                        (inputDate === "" || dateValue === inputDate) &&
+                        (statusChecked.length === 0 || statusChecked.includes(statusValue))) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

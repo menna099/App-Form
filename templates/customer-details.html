@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .nav-link {
+            color: white
+        }
+
+        .navbar-nav li a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="img navbar-brand" style="margin-left: 16.6667%;" href="/home">
+                <img src="static/emtech_logo3.jpg" alt="EMTech Logo">
+            </a>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+        <div class="container-fluid">
+            <a></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" style="margin-left: 16.667%;" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="technicalVisit">Technical Visit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attachments">Attachments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data">Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="engineer">Engineer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-details">Customer Details</a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- --------------------------------- -->
+  <div class="container">
+    <h2></h2>
+    <form>
+      <div class="form-group">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" class="form-control" id="customerName" readonly>
+      </div>
+      <div class="form-group">
+        <label for="engineer">Engineer:</label>
+        <input type="text" class="form-control" id="engineer" readonly>
+      </div>
+      <div class="form-group">
+        <label for="type">Type:</label>
+        <input type="text" class="form-control" id="type" readonly>
+      </div>
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="text" class="form-control" id="startDate" readonly>
+      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <input type="text" class="form-control" id="status" readonly>
+      </div>
+      <button type="button" id="editButton" class="btn btn-primary px-5 m-4" >Edit</button>
+      <button type="button" id="saveButton" class="btn btn-success px-5 m-4" style="display:none;">Save</button>
+    </form>
+  </div>
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerName = urlParams.get('name');
+
+        const existingData = JSON.parse(localStorage.getItem('formDataArray')) || [];
+        const customerData = existingData.find(data => data.name === customerName);
+
+        if (customerData) {
+            document.getElementById('customerName').value = customerData.name;
+            document.getElementById('engineer').value = customerData.visitEngineers.join(', ');
+            document.getElementById('type').value = customerData.visitProjects.join(', ');
+            document.getElementById('startDate').value = customerData.startDate;
+            document.getElementById('status').value = customerData.status;
+        } else {
+            alert('Customer data not found.');
+        }
+
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
+
+        editButton.addEventListener('click', () => {
+            document.getElementById('customerName').removeAttribute('readonly');
+            document.getElementById('engineer').removeAttribute('readonly');
+            document.getElementById('type').removeAttribute('readonly');
+            document.getElementById('startDate').removeAttribute('readonly');
+            document.getElementById('status').removeAttribute('readonly');
+            editButton.style.display = 'none';
+            saveButton.style.display = 'block';
+        });
+
+        saveButton.addEventListener('click', () => {
+            const updatedCustomerName = document.getElementById('customerName').value;
+            const updatedEngineer = document.getElementById('engineer').value.split(', ');
+            const updatedType = document.getElementById('type').value.split(', ');
+            const updatedStartDate = document.getElementById('startDate').value;
+            const updatedStatus = document.getElementById('status').value;
+
+            const customerIndex = existingData.findIndex(data => data.name === customerName);
+            if (customerIndex !== -1) {
+                existingData[customerIndex].name = updatedCustomerName;
+                existingData[customerIndex].visitEngineers = updatedEngineer;
+                existingData[customerIndex].visitProjects = updatedType;
+                existingData[customerIndex].startDate = updatedStartDate;
+                existingData[customerIndex].status = updatedStatus;
+
+                // Generate new URL based on the updated customer name
+                existingData[customerIndex].url = `customer-details.html?name=${encodeURIComponent(updatedCustomerName)}`;
+            }
+
+            localStorage.setItem('formDataArray', JSON.stringify(existingData));
+            alert('Data updated successfully!');
+            location.reload(); // Reload to reflect changes
+        });
+    });
+</script>
+
+</body>
+</html>

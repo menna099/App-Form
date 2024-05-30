@@ -7,125 +7,213 @@
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/92f293de12.js" crossorigin="anonymous"></script>
   <style>
+    .nav-link{
+        color:white
+    }
+    .navbar-nav li a:hover{
+        color: white;
+    }
+    a{
+      text-decoration: none;
+    }
+    .edit-icon {
+      cursor: pointer;
+    }
   </style>
 </head>
-
 <body>
+    <nav class="navbar navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="img navbar-brand" style="margin-left: 16.6667%;" href="/home">
+                <img src="static/emtech_logo3.jpg" alt="EMTech Logo">
+            </a>
+        </div>
+      </nav>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home">EMTech</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="technicalVisit">Technical Visit</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="attachments">Attachments</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admin">Admin</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="container mt-4">
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="card text-dark bg-light mb-3 ">
-        <div class="card-header">In Progress</div>
-        <div class="card-body">
-          
-          <ul class="list-group">
-          
-          </ul>
-          
+      <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+        <div class="container-fluid">
+            <a></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" style="margin-left: 16.667%;" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="technicalVisit">Technical Visit</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="attachments">Attachments</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="customer">Customer</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="data">Data</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="engineer">Engineer</a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="customer-details">Customer Details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="admin">Admin</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card text-dark bg-white mb-3 ">
+              <div class="card-header">In Progress</div>
+              <div class="card-body">
+                <ul class="list-group">
+                
+                </ul>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card text-dark bg-white mb-3">
+              <div class="card-header">Done</div>
+              <div class="card-body">
+                <ul class="list-group">
+                
+                </ul>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card text-dark bg-white mb-3">
+              <div class="card-header">Hold</div>
+              <div class="card-body">
+                <ul class="list-group">
+                
+                </ul>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card text-dark bg-white mb-3">
+              <div class="card-header">Lead</div>
+              <div class="card-body">
+                <ul class="list-group">
+                
+                </ul>
+                
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card text-dark bg-light mb-3">
-        <div class="card-header">Done</div>
-        <div class="card-body">
-          
-          <ul class="list-group">
-          
-          </ul>
-          
-        </div>
+
+        <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit Status</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="editForm">
+                      <div class="mb-3">
+                          <label for="statusSelect" class="form-label">Status</label>
+                          <select class="form-select" id="statusSelect">
+                              <option value="In Progress">In Progress</option>
+                              <option value="Done">Done</option>
+                              <option value="Hold">Hold</option>
+                              <option value="Lead">Lead</option>
+                          </select>
+                      </div>
+                      <input type="hidden" id="editItemId">
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
+              </div>
+          </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card text-dark bg-light mb-3">
-        <div class="card-header">Hold</div>
-        <div class="card-body">
-          
-          <ul class="list-group">
-          
-          </ul>
-          
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card text-dark bg-light mb-3">
-        <div class="card-header">Lead</div>
-        <div class="card-body">
-          
-          <ul class="list-group">
-          
-          </ul>
-          
-        </div>
-      </div>
-    </div>
   </div>
-</div>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
    
+ 
     <script>
       document.addEventListener('DOMContentLoaded', (event) => {
         const existingData = JSON.parse(localStorage.getItem('formDataArray')) || [];
-    
+        const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+
         if (existingData.length > 0) {
-          existingData.forEach(data => {
+          existingData.forEach((data, index) => {
             const cards = document.querySelectorAll('.card');
             let cardFound = false;
-    
+      
             cards.forEach(card => {
               const cardHeader = card.querySelector('.card-header').textContent.trim();
               if (cardHeader === data.status) {
                 const cardBody = card.querySelector('.card-body .list-group');
                 const listItem = document.createElement('li');
                 listItem.classList.add('list-group-item');
-                listItem.innerHTML = `<h5 class="card-title">${data.name} (${data.visitEngineers.join(', ')})</h5>`;
+                listItem.dataset.index = index; // Store the index to identify the item later
+                
+                const engineersLinks = data.visitEngineers.map(engineer => 
+                  `<a href="templates/engineer.html?name=${encodeURIComponent(engineer)}">${engineer}</a>`
+                ).join(', ');
+                
+                listItem.innerHTML = `
+                  <h5 class="card-title">
+                    <a href="${data.url}">${data.name}</a> (${engineersLinks})
+                    <i class="fa fa-edit edit-icon"></i>
+                  </h5>
+                `;
                 cardBody.appendChild(listItem);
                 cardFound = true;
               }
             });
-    
+      
             if (!cardFound) {
-              // This part is optional and will not run if all possible statuses are already covered
               console.warn(`Card with status ${data.status} not found. Skipping.`);
             }
+          });
+
+          document.querySelectorAll('.edit-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+              const listItem = this.closest('.list-group-item');
+              const itemIndex = listItem.dataset.index;
+              const itemData = existingData[itemIndex];
+
+              document.getElementById('editItemId').value = itemIndex;
+              document.getElementById('statusSelect').value = itemData.status;
+              editModal.show();
+            });
+          });
+
+          document.getElementById('saveChanges').addEventListener('click', () => {
+            const itemIndex = document.getElementById('editItemId').value;
+            const newStatus = document.getElementById('statusSelect').value;
+
+            existingData[itemIndex].status = newStatus;
+            localStorage.setItem('formDataArray', JSON.stringify(existingData));
+            location.reload(); // Reload to reflect changes
           });
         }
       });
     </script>
-
 </body>
-
 </html>

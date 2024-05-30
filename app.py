@@ -21,6 +21,23 @@ def attachments():
 @app.route('/technicalVisit') 
 def technical_visit(): 
     return render_template('technicalVisit.html') 
+
+@app.route('/data') 
+def data(): 
+    return render_template('data.html') 
+
+@app.route('/engineer') 
+def engineer(): 
+    return render_template('engineer.html') 
+
+@app.route('/customer') 
+def customer(): 
+    return render_template('customer.html') 
+
+@app.route('/customer-details') 
+def customer_details(): 
+    return render_template('customer-details.html') 
+
  
 if __name__ == '__main__': 
     app.run(host='0.0.0.0', port=5555)
